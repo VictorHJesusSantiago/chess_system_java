@@ -1,267 +1,326 @@
-<div align="center">
+﻿<div align="center">
 
-<img src="https://cdn-icons-png.flaticon.com/512/1165/1165163.png" alt="Chess Logo" width="110" />
+**Choose Language / Selecione o Idioma / Elija el Idioma**
 
-# ♞ Sistema de Xadrez — Java
-
-**Um jogo de xadrez completo em Java, focado em uma arquitetura de camadas robusta**
-**e lógica de jogo precisa, jogado inteiramente no console.**
-
-<br>
-
-![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![NetBeans](https://img.shields.io/badge/Apache%20NetBeans-1B6AC6?style=for-the-badge&logo=apache-netbeans-ide&logoColor=white)
-![OOP](https://img.shields.io/badge/Paradigma-OOP-blueviolet?style=for-the-badge)
-![Console](https://img.shields.io/badge/Interface-Console-555555?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Completo-brightgreen?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+[![English](https://img.shields.io/badge/English-Current-005CA5?style=for-the-badge)](README.md)
+[![Portugues](https://img.shields.io/badge/Portugues-README_PT.md-009C3B?style=for-the-badge)](README_PT.md)
+[![Espanol](https://img.shields.io/badge/Espanol-README_ES.md-C60B1E?style=for-the-badge)](README_ES.md)
 
 </div>
 
 ---
 
-## 📚 Tabela de Conteúdos
+<div align="center">
 
-> Navegue rapidamente pelas seções do projeto.
+# Chess System Java
 
-| # | Seção |
-|:-:|:------|
-| 1 | [📖 Sobre o Projeto](#-sobre-o-projeto) |
-| 2 | [🖥️ Demonstração no Console](#️-demonstração-no-console) |
-| 3 | [✨ Funcionalidades](#-funcionalidades) |
-| 4 | [📦 Arquitetura do Projeto](#-arquitetura-do-projeto) |
-| 5 | [🛠️ Tecnologias Utilizadas](#️-tecnologias-utilizadas) |
-| 6 | [🚀 Como Executar](#-como-executar) |
-| 7 | [🤝 Como Contribuir](#-como-contribuir) |
-| 8 | [👨‍💻 Autor](#-autor) |
-| 9 | [📄 Licença](#-licença) |
+A complete console chess implementation in Java, with layered architecture,
+move validation, check/checkmate detection, and special chess rules.
 
----
+![Java](https://img.shields.io/badge/Java-21+-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Build](https://img.shields.io/badge/Build-Ant-1B6AC6?style=for-the-badge)
+![Paradigm](https://img.shields.io/badge/Paradigm-OOP-6A1B9A?style=for-the-badge)
+![Interface](https://img.shields.io/badge/Interface-Console-555555?style=for-the-badge)
+![Status](https://img.shields.io/badge/Status-Working-2E7D32?style=for-the-badge)
 
-## 📖 Sobre o Projeto
-
-> **Sistema de Xadrez** é uma implementação completa de um jogo de xadrez em console com Java. O foco principal não é a interface gráfica, mas sim a criação de um sistema **coeso, bem estruturado e com lógica de jogo precisa**.
-
-O projeto foi desenhado com separação de responsabilidades em **duas camadas independentes**: uma camada genérica de jogo de tabuleiro (reutilizável) e uma camada específica de xadrez com todas as regras de negócio — demonstrando na prática os princípios de **Herança**, **Abstração** e **Encapsulamento** da Orientação a Objetos.
+</div>
 
 ---
 
-## 🖥️ Demonstração no Console
+## Table of Contents
 
-```
-  a b c d e f g h
-8 R N B Q K B N R
-7 P P P P P P P P
-6 - - - - - - - -
-5 - - - - - - - -
-4 - - - - - - - -
-3 - - - - - - - -
-2 p p p p p p p p
-1 r n b q k b n r
-  a b c d e f g h
-
-Turn : 1
-Waiting player: WHITE
-
-Source: e2
-Target: e4
-```
-
-> As peças **maiúsculas** representam as pretas (`BLACK`) e as **minúsculas** representam as brancas (`WHITE`). A entrada é feita no formato padrão de xadrez: coluna (a–h) + linha (1–8).
+- [Overview](#overview)
+- [Architecture](#architecture)
+- [Technology Stack](#technology-stack)
+- [Project Structure](#project-structure)
+- [Core Rules Implemented](#core-rules-implemented)
+- [Class Responsibilities](#class-responsibilities)
+- [Execution Flow](#execution-flow)
+- [How to Run](#how-to-run)
+- [How to Play](#how-to-play)
+- [Known Limitations](#known-limitations)
+- [Contributing](#contributing)
+- [Author](#author)
+- [License](#license)
 
 ---
 
-## ✨ Funcionalidades
+## Overview
 
-### ♟️ Regras Padrão
+Chess System Java is a terminal-based chess game focused on clean design and reliable game logic.
 
-| Ícone | Funcionalidade | Descrição |
-|:-----:|:---------------|:----------|
-| 🗺️ | **Impressão do Tabuleiro** | Interface de console (`UI.java`) que redesenha o tabuleiro após cada jogada. |
-| 🎯 | **Movimentação de Peças** | Aceita entrada no formato de xadrez (ex: `e2` → `e4`). |
-| ✅ | **Validação de Movimentos** | Calcula e exibe os movimentos possíveis, impedindo jogadas ilegais. |
-| ⚔️ | **Capturas** | Lógica completa para capturar peças do oponente. |
-| 🔄 | **Sistema de Turnos** | Controla qual cor (Brancas ou Pretas) deve jogar em cada turno. |
-| ♚ | **Detecção de Xeque** | Identifica e sinaliza quando um Rei está em xeque. |
-| 🏁 | **Detecção de Xeque-Mate** | Encerra o jogo quando um Xeque-Mate é alcançado. |
+The codebase is organized in two clear layers:
 
-### ⭐ Regras Especiais Implementadas
+- boardgame: reusable, generic board abstractions.
+- chess: chess-specific rules and match state.
 
-| Regra Especial | Arquivo de Implementação |
-|:---------------|:------------------------:|
-| ♜ **Roque Pequeno e Grande** | `King.java` |
-| ⬡ **En Passant** | `Pawn.java` + `ChessMatch.java` |
-| 👑 **Promoção de Peão** | `ChessMatch.java` *(promove para Rainha por padrão)* |
+Current implementation includes:
+
+- Full turn-based move cycle.
+- Legal move generation per piece.
+- Illegal move prevention.
+- Check and checkmate detection.
+- Castling (kingside and queenside).
+- En passant.
+- Pawn promotion (default queen, manual replacement allowed).
 
 ---
 
-## 📦 Arquitetura do Projeto
+## Architecture
 
-> O design em **duas camadas independentes** é o conceito central do projeto.
+```mermaid
+flowchart TB
+    subgraph APP[Application Layer]
+        P[Program.java\nMain game loop]
+        U[UI.java\nConsole I/O and rendering]
+    end
 
-```
-┌─────────────────────────────────────────────────┐
-│             CAMADA DE XADREZ (chess)             │
-│   Regras específicas do xadrez — herda boardgame │
-│  ChessMatch · ChessPiece · ChessPosition · Color  │
-│  Bishop · King · Knight · Pawn · Queen · Rook    │
-└───────────────────┬─────────────────────────────┘
-                    │ herda / implementa
-┌───────────────────▼─────────────────────────────┐
-│         CAMADA GENÉRICA (boardgame)              │
-│  Abstração de qualquer jogo de tabuleiro         │
-│       Board · Piece · Position                   │
-└─────────────────────────────────────────────────┘
+    subgraph CHESS[Domain Layer - chess]
+        M[ChessMatch\nMatch state and rules]
+        CP[ChessPiece]
+        POS[ChessPosition]
+        PIECES[Bishop King Knight Pawn Queen Rook]
+    end
+
+    subgraph CORE[Core Layer - boardgame]
+        B[Board]
+        PC[Piece]
+        BP[Position]
+        BE[BoardException]
+    end
+
+    P --> U
+    P --> M
+    M --> B
+    M --> CP
+    CP --> PC
+    POS --> BP
+    PIECES --> CP
 ```
 
-### 🗂️ Descrição dos Pacotes
+Design highlights:
 
-| Pacote / Arquivo | Classe | Responsabilidade |
-|:-----------------|:------:|:-----------------|
-| *(default)* | `Program.java` | Ponto de entrada — inicia o jogo e contém o **loop principal** da partida. |
-| *(default)* | `UI.java` | Toda a interação com o console: imprime tabuleiro, lê entradas e limpa a tela. |
-| `boardgame` | `Board.java` | Tabuleiro genérico (matriz de peças). Não conhece nada sobre xadrez. |
-| `boardgame` | `Piece.java` | Classe **abstrata** para uma peça genérica de tabuleiro. |
-| `boardgame` | `Position.java` | Representa uma posição (linha e coluna) na matriz interna. |
-| `boardgame` | `BoardException.java` | Exceção personalizada para erros de tabuleiro. |
-| `chess` | `ChessMatch.java` | ❤️ **O coração do jogo.** Controla partida, turnos, regras especiais e estado. |
-| `chess` | `ChessPiece.java` | Classe **abstrata** para peça de xadrez — adiciona a cor (`Color`). |
-| `chess` | `ChessPosition.java` | Converte posições de matriz (`0,0`) para notação de xadrez (`a8`). |
-| `chess` | `Color.java` | `enum` com os valores `BLACK` e `WHITE`. |
-| `chess` | `ChessException.java` | Exceção personalizada para erros de regras de xadrez. |
-| `chess.pieces` | `Bishop · King · Knight` | Classes concretas de peças com sua lógica de `possibleMoves()`. |
-| `chess.pieces` | `Pawn · Queen · Rook` | Classes concretas de peças com sua lógica de `possibleMoves()`. |
+- Inheritance between generic and chess-specific pieces.
+- Encapsulation of board mutation inside Board and ChessMatch.
+- Centralized rule enforcement in ChessMatch.
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Technology Stack
 
-| Tecnologia | Função no Projeto |
-|:-----------|:------------------|
-| **Java** | Linguagem principal — toda a lógica, arquitetura e regras do jogo. |
-| **Apache NetBeans** | IDE utilizada no desenvolvimento (arquivos `nbproject/` incluídos). |
-| **OOP (Herança, Abstração, Encapsulamento)** | Paradigma central que estrutura as duas camadas do projeto. |
-
----
-
-## 🚀 Como Executar
-
-### 📋 Pré-requisitos
-
-| Requisito | Detalhe |
-|:----------|:--------|
-| **JDK** | Versão **11 ou superior** instalada e configurada no `PATH`. |
-| **Apache NetBeans** *(opcional)* | Recomendado para execução direta. |
-| **Git** | Para clonar o repositório. |
+| Layer | Technology | Purpose |
+|---|---|---|
+| Language | Java 21+ | Game logic and object model |
+| Build | Apache Ant + NetBeans project files | Build and run project |
+| UI | Console ANSI output | Board rendering and input |
+| Architecture | OOP | Inheritance, abstraction, encapsulation |
 
 ---
 
-### ▶️ Opção 1 — Apache NetBeans (Recomendado)
+## Project Structure
 
+```text
+chess_system_java/
+|-- build.xml
+|-- manifest.mf
+|-- README.md
+|-- README_PT.md
+|-- README_ES.md
+|-- nbproject/
+|   |-- build-impl.xml
+|   |-- project.properties
+|   `-- ...
+`-- src/
+    |-- Program.java
+    |-- UI.java
+    |-- boardgame/
+    |   |-- Board.java
+    |   |-- BoardException.java
+    |   |-- Piece.java
+    |   `-- Position.java
+    `-- chess/
+        |-- ChessException.java
+        |-- ChessMatch.java
+        |-- ChessPiece.java
+        |-- ChessPosition.java
+        |-- Color.java
+        `-- pieces/
+            |-- Bishop.java
+            |-- King.java
+            |-- Knight.java
+            |-- Pawn.java
+            |-- Queen.java
+            `-- Rook.java
 ```
-1. Abra o Apache NetBeans IDE
-2. File → Open Project...
-3. Selecione a pasta raiz do projeto (chess_system_java-main)
-4. Clique em "Run Project" ou pressione F6
-```
-
-> A IDE compila e executa `Program.java` automaticamente no terminal de saída.
 
 ---
 
-### 💻 Opção 2 — Terminal (Manual)
+## Core Rules Implemented
 
-**1. Clone o repositório e acesse a pasta `src/`:**
+### Standard rules
+
+- Piece movement by type.
+- Captures.
+- Turn alternation (WHITE and BLACK).
+- Illegal self-check move rejection.
+- Check and checkmate detection.
+
+### Special rules
+
+- Castling:
+  - Kingside castling.
+  - Queenside castling.
+  - Requires unmoved king/rook and clear path.
+- En passant:
+  - Tracks enPassantVulnerable pawn.
+  - Available immediately after opponent double pawn move.
+- Promotion:
+  - Auto-promotes to Queen at last rank.
+  - Supports replacement types: B (Bishop), H (Knight), R (Rook), Q (Queen).
+
+---
+
+## Class Responsibilities
+
+| Class | Responsibility |
+|---|---|
+| Program | Main game loop, input sequence, exception handling |
+| UI | Console rendering, board display, position parsing |
+| ChessMatch | Match lifecycle, move execution, validation, checkmate evaluation |
+| ChessPiece | Chess piece base abstraction with color and move count |
+| ChessPosition | Chess notation conversion (a1-h8) <-> matrix coordinates |
+| Board | Generic matrix board and low-level piece placement/removal |
+| Piece | Generic abstract piece and possible move contract |
+| Bishop/King/Knight/Pawn/Queen/Rook | Piece-specific movement logic |
+
+---
+
+## Execution Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Program
+    participant UI
+    participant Match as ChessMatch
+
+    loop Until checkmate
+        Program->>UI: printMatch()
+        Program->>User: Source
+        User-->>Program: chess position
+        Program->>Match: possibleMoves(source)
+        Program->>UI: printBoard with highlights
+        Program->>User: Target
+        User-->>Program: chess position
+        Program->>Match: performChessMove(source, target)
+        Match->>Match: validate/move/check/checkmate/special rules
+    end
+
+    Program->>UI: print final match state
+```
+
+---
+
+## How to Run
+
+### Prerequisites
+
+- JDK 21 or newer.
+- Optional: Apache NetBeans.
+- Optional: Apache Ant.
+
+### Option 1: NetBeans
+
+1. Open project folder in NetBeans.
+2. Run project (F6).
+3. Main class is Program.
+
+### Option 2: Ant
+
+From repository root:
 
 ```bash
-git clone https://github.com/VictorHJesusSantiago/chess_system_java.git
-cd chess_system_java/src
+ant run
 ```
 
-**2. Compile todos os arquivos `.java`:**
+### Option 3: javac/java
+
+From repository root:
 
 ```bash
-# Linux / macOS
+cd src
 javac Program.java UI.java boardgame/*.java chess/*.java chess/pieces/*.java
-
-# Windows
-javac Program.java UI.java boardgame\*.java chess\*.java chess\pieces\*.java
+java Program
 ```
 
-**3. Execute a partir da pasta `src/`:**
+On Windows PowerShell:
 
-```bash
+```powershell
+cd src
+javac Program.java UI.java boardgame\*.java chess\*.java chess\pieces\*.java
 java Program
 ```
 
 ---
 
-### 🎮 Como Jogar
+## How to Play
 
-| Passo | Instrução |
-|:-----:|:----------|
-| 1️⃣ | O tabuleiro é impresso no console com a posição inicial das peças. |
-| 2️⃣ | Digite a **origem** do movimento no formato `coluna + linha` (ex: `e2`). |
-| 3️⃣ | Os movimentos possíveis são destacados no tabuleiro. |
-| 4️⃣ | Digite o **destino** do movimento (ex: `e4`). |
-| 5️⃣ | O turno passa para o adversário. Repita até o Xeque-Mate. |
+1. Enter source square in algebraic form, for example e2.
+2. Enter target square, for example e4.
+3. Follow turn indicator shown in console.
+4. Continue until checkmate.
 
----
+Console messages indicate:
 
-## 🤝 Como Contribuir
-
-> Contribuições são muito bem-vindas! Siga as etapas abaixo para colaborar de forma organizada.
-
-| Passo | Ação | Comando |
-|:-----:|:-----|:--------|
-| 1️⃣ | **Fork** | Crie um fork do repositório para a sua conta. | — |
-| 2️⃣ | **Branch** | Crie sua feature branch a partir da `main`. | `git checkout -b feature/NovaFeature` |
-| 3️⃣ | **Commit** | Salve as alterações com mensagem clara e semântica. | `git commit -m 'feat: Adiciona NovaFeature'` |
-| 4️⃣ | **Push** | Envie a branch para o repositório remoto. | `git push origin feature/NovaFeature` |
-| 5️⃣ | **Pull Request** | Abra um PR detalhando as mudanças realizadas. | — |
-
-<div align="center">
-
-<br>
-
-**Se este projeto foi útil para os seus estudos, deixe uma estrela ⭐️ no repositório!**
-
-</div>
+- Current turn.
+- Current player.
+- Check state.
+- Captured pieces list.
 
 ---
 
-## 👨‍💻 Autor
+## Known Limitations
 
-<div align="center">
-
-<br>
-
-**Victor H. J. Santiago**
-
-<br>
-
-[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/VictorHJesusSantiago)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/victor-henrique-de-jesus-santiago/)
-
-</div>
+- No graphical interface (console only).
+- No persistence (match state is in-memory only).
+- No automated test suite included yet.
+- Some user-facing messages are in Portuguese.
 
 ---
 
-## 📄 Licença
+## Contributing
 
-<div align="center">
+1. Fork the repository.
+2. Create a feature branch.
+3. Commit with clear messages.
+4. Open a pull request describing your change.
 
-Este projeto está distribuído sob a **Licença MIT**.
-Consulte o arquivo [`LICENSE`](./LICENSE) no repositório para mais informações.
+Suggested contribution areas:
 
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
+- Unit tests for movement and checkmate scenarios.
+- Internationalization for UI messages.
+- Optional PGN export/import.
+- Optional draw rules (threefold repetition, fifty-move rule, stalemate reporting improvements).
 
-</div>
+---
+
+## Author
+
+Victor H. J. Santiago
+
+- GitHub: https://github.com/VictorHJesusSantiago
+- LinkedIn: https://www.linkedin.com/in/victor-henrique-de-jesus-santiago/
+
+---
+
+## License
+
+MIT License.
+
+If the LICENSE file is not yet present in your local clone, add one before publishing derived work.
 
 ---
 
 <div align="center">
-
-*Feito com ♟️ e Java por **Victor H. J. Santiago***
-
+Built for study, design practice, and clean chess rule implementation in Java.
 </div>
