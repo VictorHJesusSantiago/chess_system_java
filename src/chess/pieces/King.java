@@ -36,49 +36,41 @@ public class King extends ChessPiece{
         boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()]; 
         Position p = new Position(0,0);
         
-        //ACIMA DO REI
         p.setValues(position.getRow() - 1, position.getColumn());
         if(getBoard().positionExists(p) && canMove(p)){
             mat[p.getRow()][p.getColumn()] = true;
         }
         
-        //ABAIXO DO REI
         p.setValues(position.getRow() + 1, position.getColumn());
         if(getBoard().positionExists(p) && canMove(p)){
             mat[p.getRow()][p.getColumn()] = true;
         }
         
-        //ESQUERDA DO REI
          p.setValues(position.getRow(), position.getColumn() - 1);
         if(getBoard().positionExists(p) && canMove(p)){
             mat[p.getRow()][p.getColumn()] = true;
         }
         
-        //DIREITA DO REI
         p.setValues(position.getRow(), position.getColumn() + 1);
         if(getBoard().positionExists(p) && canMove(p)){
             mat[p.getRow()][p.getColumn()] = true;
         }
         
-        //NOROESTE DO REI
         p.setValues(position.getRow() - 1, position.getColumn() - 1);
         if(getBoard().positionExists(p) && canMove(p)){
             mat[p.getRow()][p.getColumn()] = true;
         }
         
-        //NORDESTE DO REI 
         p.setValues(position.getRow()-1, position.getColumn() + 1);
         if(getBoard().positionExists(p) && canMove(p)){
             mat[p.getRow()][p.getColumn()] = true;
         }
         
-        //SUDOESTE DO REI
         p.setValues(position.getRow() + 1, position.getColumn() + 1);
         if(getBoard().positionExists(p) && canMove(p)){
             mat[p.getRow()][p.getColumn()] = true;
         }
         
-        //SUDESTE DO REI
         p.setValues(position.getRow() +1 , position.getColumn() + 1);
         if(getBoard().positionExists(p) && canMove(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -86,7 +78,6 @@ public class King extends ChessPiece{
         
         
         if (getMoveCount() == 0 && !chessMatch.getCheck()){
-            //MOVIMENTO ESPECIAL DE ROQUE PEQUENO
             Position posT1 = new Position(position.getRow(), position.getColumn()+3);
             if(testRookCastling(posT1)){
                 Position p1 = new Position(position.getRow(), position.getColumn() + 1);
@@ -96,7 +87,6 @@ public class King extends ChessPiece{
                 }
             }
         
-            //MOVIMENTO ESPECIAL DE ROQUE GRANDE
             Position posT2 = new Position(position.getRow(), position.getColumn() - 4);
             if(testRookCastling(posT2)){
                 Position p1 = new Position(position.getRow(), position.getColumn() - 1);
