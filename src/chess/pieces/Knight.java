@@ -27,7 +27,6 @@ public class Knight extends ChessPiece{
         boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()]; 
         Position p = new Position(0,0);
         
-        //MOVIMENTOS DO CAVALO (KNIGHT)
         p.setValues(position.getRow() - 1, position.getColumn()- 2);
         if(getBoard().positionExists(p) && canMove(p)){
             mat[p.getRow()][p.getColumn()] = true;
