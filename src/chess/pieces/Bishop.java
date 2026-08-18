@@ -23,7 +23,6 @@ public class Bishop extends ChessPiece{
         boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()]; 
         Position p = new Position(0,0);
         
-        //NOROESTE DO BISPO
         p.setValues(position.getRow()-1, position.getColumn() - 1);
         while(getBoard().positionExists(p) && !getBoard().thereIsaPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -33,7 +32,6 @@ public class Bishop extends ChessPiece{
             mat[p.getRow()][p.getColumn()] = true;
         }
         
-        //NORDESTE DO BISPO
         p.setValues(position.getRow() - 1, position.getColumn()+ 1);
         while(getBoard().positionExists(p) && !getBoard().thereIsaPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -43,7 +41,6 @@ public class Bishop extends ChessPiece{
             mat[p.getRow()][p.getColumn()] = true;
         }
         
-        //SUDESTE DO BISPO
         p.setValues(position.getRow() + 1, position.getColumn() + 1);
         while(getBoard().positionExists(p) && !getBoard().thereIsaPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;
@@ -53,7 +50,6 @@ public class Bishop extends ChessPiece{
             mat[p.getRow()][p.getColumn()] = true;
         }
         
-        //SUDOESTE DO BISPO
         p.setValues(position.getRow() + 1, position.getColumn() - 1);
         while(getBoard().positionExists(p) && !getBoard().thereIsaPiece(p)){
             mat[p.getRow()][p.getColumn()] = true;

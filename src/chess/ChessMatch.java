@@ -92,7 +92,6 @@ public class ChessMatch {
         
         ChessPiece movedPiece = (ChessPiece)board.piece(target);
         
-        //MOVIMENTO ESPECIAL PROMOÇÃO
         promoted = null;
         if((movedPiece instanceof Pawn)){
             if(movedPiece.getColor() == Color.WHITE && target.getRow() == 0 || (movedPiece.getColor() == Color.BLACK && target.getRow() == 7)){
@@ -110,7 +109,6 @@ public class ChessMatch {
             nextTurn();
         }
         
-        //MVIMENTO ESPECIAL EM PASSANT
         if(movedPiece instanceof Pawn && (target.getRow() == source.getRow() - 2 || target.getRow() == source.getRow()+2)){
             enPassantVulnerable = movedPiece;
         }
@@ -153,14 +151,12 @@ public class ChessMatch {
         p.increaseMoveCount();
         Piece capturedPiece = board.removePiece(target);
         board.placePiece(p, target);
-        //nextTurn();
        
        if(capturedPiece != null){
            piecesOnTheBoard.remove(capturedPiece);
            capturedPieces.add(capturedPiece);
        }
        
-        //MOVIMENTO ESPECIAL DE ROQUE PEQUENO
        if(p instanceof King && target.getColumn() == source.getColumn() + 2){
            Position sourceT = new Position(source.getRow(), source.getColumn() + 3);
            Position targetT = new Position(source.getRow(), source.getColumn() + 1);
@@ -169,7 +165,6 @@ public class ChessMatch {
            rook.increaseMoveCount();
        }
        
-       //MOVIMENTO ESPECIAL DE ROQUE GRANDE
        if(p instanceof King && target.getColumn() == source.getColumn() - 2){
            Position sourceT = new Position(source.getRow(), source.getColumn() - 4);
            Position targetT = new Position(source.getRow(), source.getColumn() - 1);
@@ -178,7 +173,6 @@ public class ChessMatch {
            rook.increaseMoveCount();
        }
        
-       //MOVIMENTO ESPECIAL EN PASSANT
        if(p instanceof Pawn){
            if(source.getColumn() != target.getColumn() && capturedPiece == null){
                Position pawnPosition;
@@ -208,7 +202,6 @@ public class ChessMatch {
             piecesOnTheBoard.add(capturedPiece);
         }
         
-         //MOVIMENTO ESPECIAL DE ROQUE PEQUENO
        if(p instanceof King && target.getColumn() == source.getColumn() + 2){
            Position sourceT = new Position(source.getRow(), source.getColumn() + 3);
            Position targetT = new Position(source.getRow(), source.getColumn() + 1);
@@ -217,7 +210,6 @@ public class ChessMatch {
            rook.decreaseMoveCount();
        }
        
-       //MOVIMENTO ESPECIAL DE ROQUE GRANDE
        if(p instanceof King && target.getColumn() == source.getColumn() - 2){
            Position sourceT = new Position(source.getRow(), source.getColumn() - 4);
            Position targetT = new Position(source.getRow(), source.getColumn() - 1);
@@ -226,7 +218,6 @@ public class ChessMatch {
            rook.decreaseMoveCount();
        }
        
-       //MOVIMENTO ESPECIAL EN PASSANT
        if(p instanceof Pawn){
            if(source.getColumn() != target.getColumn() && capturedPiece == enPassantVulnerable){
                ChessPiece pawn = (ChessPiece)board.removePiece(target);
@@ -325,21 +316,6 @@ public class ChessMatch {
     }
 
     private void initialSetup() {
-       /*
-        placeNewPiece('c', 1, new Rook(board, Color.WHITE));
-        placeNewPiece('c', 2, new Rook(board, Color.WHITE));
-        placeNewPiece('d', 2, new Rook(board, Color.WHITE));
-        placeNewPiece('e', 2, new Rook(board, Color.WHITE));
-        placeNewPiece('e', 1, new Rook(board, Color.WHITE));
-        placeNewPiece('d', 1, new King(board, Color.WHITE));
-
-        placeNewPiece('c', 7, new Rook(board, Color.BLACK));
-        placeNewPiece('c', 8, new Rook(board, Color.BLACK));
-        placeNewPiece('d', 7, new Rook(board, Color.BLACK));
-        placeNewPiece('e', 7, new Rook(board, Color.BLACK));
-        placeNewPiece('e', 8, new Rook(board, Color.BLACK));
-        placeNewPiece('d', 8, new King(board, Color.BLACK));
-        */
        
         placeNewPiece('a', 1, new Rook(board, Color.WHITE));
         placeNewPiece('b', 1, new Knight(board, Color.WHITE));
