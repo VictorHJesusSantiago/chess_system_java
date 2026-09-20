@@ -2,4 +2,21 @@
 <project name="chess_system" default="default" basedir=".">
     <description>Builds, tests, and runs the project chess_system.</description>
     <import file="nbproject/build-impl.xml"/>
+
+    <target name="test">
+        <mkdir dir="${build.test.classes.dir}"/>
+        <javac destdir="${build.test.classes.dir}"
+               includeantruntime="false"
+               source="${javac.source}"
+               target="${javac.target}">
+            <src path="${src.dir}"/>
+            <src path="${test.src.dir}"/>
+        </javac>
+        <java classname="ChessSystemTest" fork="true" failonerror="true">
+            <jvmarg value="-ea"/>
+            <classpath>
+                <pathelement path="${build.test.classes.dir}"/>
+            </classpath>
+        </java>
+    </target>
 </project>
